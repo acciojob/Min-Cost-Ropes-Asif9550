@@ -1,9 +1,6 @@
-function mincost(arr)
-{ 
-//write your code here
-// return the min cost
-   const MinHeap = require('collections/heap'); // Using collections library for a MinHeap
-  
+function mincost(arr) {
+  const MinHeap = require('collections/heap'); // Using collections library for a MinHeap
+
   // Initialize a min-heap with the rope lengths
   const heap = new MinHeap(arr, null, (a, b) => b - a); // MinHeap (smallest first)
 
@@ -23,6 +20,6 @@ function mincost(arr)
 
   return totalCost;
 }
-}
 
-module.exports=mincost;
+
+module.exports = mincost;
