@@ -1,24 +1,28 @@
-const MinHeap = require('collections/heap'); // Using collections library for a MinHeap
-
 function mincost(arr) {
-  // Initialize a min-heap with the rope lengths
-  const heap = new MinHeap(arr, null, (a, b) => b - a); // MinHeap (smallest first)
+    if (arr.length < 2) {
+        return 0; // If there's only one or no rope, no cost is needed
+    }
 
-  let totalCost = 0;
+    // Create a min-heap from the array (using the priority queue approach)
+    const heap = [...arr];
+    heap.sort((a, b) => a - b); // Sort to simulate a min-heap
 
-  // Keep combining ropes until only one rope remains
-  while (heap.length > 1) {
-    const rope1 = heap.pop(); // Smallest rope
-    const rope2 = heap.pop(); // Second smallest rope
+    let totalCost = 0;
 
-    const cost = rope1 + rope2;
-    totalCost += cost;
+    // While more than one rope remains, keep connecting the two smallest
+    while (heap.length > 1) {
+        // Extract the two smallest ropes
+        const first = heap.shift(); // O(N) operation, simulating heappop
+        const second = heap.shift(); // O(N) operation, simulating heappop
 
-    // Add the combined rope back into the heap
-    heap.push(cost);
-  }
+        // The cost of connecting these two ropes
+        const cost = first + second;
+        totalCost += cost;
 
-  return totalCost;
+        // Insert the combined rope back into the heap (in sorted order)
+        heap.push(cost); // Add the new rope
+        heap.sort((a, b) => a - b); // Sort the heap again to simulate rebalancing
+    }
+
+    return totalCost;
 }
-
-module.exports = mincost;
